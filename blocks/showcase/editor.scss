@@ -1,0 +1,94 @@
+/** Editor only */
+.wp-block-idx-gutenberg-showcase {
+	.property a:hover {
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+}
+/** Editor and frontend - everything to EOF*/
+.wp-block-idx-gutenberg-showcase {
+	> div {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		grid-template-rows: auto;
+		grid-gap: 20px;
+		text-align: left;
+	}
+	&.align-center > div {
+		text-align: center;
+	}
+	&.align-right > div {
+		text-align: right;
+	}
+	> div.columns-8 {
+		grid-template-columns: auto auto auto auto auto auto auto auto;
+	}
+	> div.columns-7 {
+		grid-template-columns: auto auto auto auto auto auto auto;
+	}
+	> div.columns-6 {
+		grid-template-columns: auto auto auto auto auto auto;
+	}
+	> div.columns-5 {
+		grid-template-columns: auto auto auto auto auto;
+	}
+	> div.columns-4 {
+		grid-template-columns: auto auto auto auto;
+	}
+	> div.columns-3 {
+		grid-template-columns: auto auto auto;
+	}
+	> div.columns-2 {
+		grid-template-columns: auto auto;
+	}
+	> div.columns-1 {
+		grid-template-columns: auto;
+	}
+
+	/** Property details */
+	.property ul {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		margin: 0;
+		padding: 0;
+	}
+	&.align-center .property ul {
+		justify-content: center;
+	}
+	&.align-right .property ul {
+		justify-content: flex-end;
+	}
+	.property ul li {
+		list-style-type: none;
+		margin: 0 8px 0 0;
+	}
+	&.align-center .property ul li {
+		margin: 0 4px;
+	}
+	&.align-right .property ul li {
+		margin: 0 0 0 8px;
+	}
+}
+
+/** Field display options */
+.wp-block-idx-gutenberg-showcase {
+	&.hide-price .price,
+	&.hide-address .address,
+	&.hide-beds .beds,
+	&.hide-beds-icon .beds i,
+	&.hide-beds-label .beds .label,
+	&.hide-baths .baths,
+	&.hide-baths-icon .baths i,
+	&.hide-baths-label .baths .label,
+	&.hide-sqft .sqft,
+	&.hide-sqft-icon .sqft i,
+	&.hide-sqft-label .sqft .label,
+	&.hide-acres .acres,
+	&.hide-acres-icon .acres i,
+	&.hide-acres-label .acres .label,
+	&.hide-photo-count .gallery,
+	&.hide-view-count .view-count {
+		display: none;
+	}
+}
