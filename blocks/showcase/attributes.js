@@ -1,5 +1,9 @@
 // Set for each piece of dynamic data used in your block
 const attributes = {
+	showcaseFormat: {
+		type: 'string',
+		default: 'showcase'
+	},
 	propertyType: {
 		type: 'string',
 		default: 'featured'
@@ -15,6 +19,30 @@ const attributes = {
 	numberColumns: {
 		type: 'integer',
 		default: 3
+	},
+	carouselVisibleProps: {
+		type: 'integer',
+		default: 1
+	},
+	carouselAutoplay: {
+		type: 'boolean',
+		default: true
+	},
+	carouselStagePadding: {
+		type: 'integer',
+		default: 0
+	},
+	carouselMargin: {
+		type: 'integer',
+		default: 0
+	},
+	orderBy: {
+		type: 'string',
+		default: 'price'
+	},
+	order: {
+		type: 'string',
+		default: 'DESC'
 	},
 	detailsPosition: {
 		type: 'string',

@@ -37,10 +37,17 @@ export default class Inspector extends Component {
 	render() {
 		const {
 			attributes: {
+				showcaseFormat,
 				propertyType,
 				savedLinkID,
 				maxProperties,
 				numberColumns,
+				carouselVisibleProps,
+				carouselStagePadding,
+				carouselMargin,
+				carouselAutoplay,
+				orderBy,
+				order,
 				detailsPosition,
 				textAlignment,
 				hidePrice,
@@ -62,8 +69,188 @@ export default class Inspector extends Component {
 			},
 			setAttributes, className } = this.props;
 
-		return (
+		// Define additional display options as const to conditionally display them.
+		const showcaseFormatOptions = () => {
+			if ( 'showcase' === showcaseFormat ) {
+				return (
+					<PanelBody>
+						<RangeControl
+							beforeIcon="arrow-left-alt2"
+							afterIcon="arrow-right-alt2"
+							label={ __( 'Number of Columns', 'idx-gutenberg' ) }
+							value={ numberColumns }
+							onChange={ numberColumns => setAttributes( { numberColumns } ) }
+							min={ 1 }
+							max={ 8 }
+						/>
+					</PanelBody>
+				);
+			}
+
+			if ( 'carousel' === showcaseFormat ) {
+				return (
+					<PanelBody>
+						<RangeControl
+							beforeIcon="arrow-left-alt2"
+							afterIcon="arrow-right-alt2"
+							label={ __( 'Number of properties visible', 'idx-gutenberg' ) }
+							help={ __( 'This is the number of properties displayed in the carousel at a time. For slideshow animation options, choose one (1).', 'idx-gutenberg' ) }
+							value={ carouselVisibleProps }
+							onChange={ carouselVisibleProps => setAttributes( { carouselVisibleProps } ) }
+							min={ 1 }
+							max={ 6 }
+						/>
+						<RangeControl
+							beforeIcon="arrow-left-alt2"
+							afterIcon="arrow-right-alt2"
+							label={ __( 'Stage Padding', 'idx-gutenberg' ) }
+							help={ __( 'Stage Padding displays a preview of the next/previous slide equal to the stage padding width.', 'idx-gutenberg' ) }
+							value={ carouselStagePadding }
+							onChange={ carouselStagePadding => setAttributes( { carouselStagePadding } ) }
+							min={ 0 }
+							max={ 100 }
+						/>
+						<RangeControl
+							beforeIcon="arrow-left-alt2"
+							afterIcon="arrow-right-alt2"
+							label={ __( 'Slide Margin', 'idx-gutenberg' ) }
+							help={ __( 'Increase or decrease the margin between slides.', 'idx-gutenberg' ) }
+							value={ carouselMargin }
+							onChange={ carouselMargin => setAttributes( { carouselMargin } ) }
+							min={ 0 }
+							max={ 100 }
+						/>
+						<CheckboxControl
+							heading={ __( 'Autoplay Carousel', 'idx-gutenberg' ) }
+							label={ __( 'Yes', 'idx-gutenberg' ) }
+							help={ __( 'Uncheck this box to disable autoplay.', 'idx-gutenberg' ) }
+							checked={ carouselAutoplay }
+							onChange={ carouselAutoplay => setAttributes( { carouselAutoplay } ) }
+						/>
+					</PanelBody>
+				);
+			}
+			
+		} 
+		
+		const detailsOptionsBeds = () => {
+			if ( hideBeds ) {
+				return '';
+			}
+
+			return (
+				<PanelRow>
+					<CheckboxControl
+						heading={ __( 'Hide Beds Icon', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the Beds icon.', 'idx-gutenberg' ) }
+						checked={ hideBedsIcon }
+						onChange={ hideBedsIcon => setAttributes( { hideBedsIcon } ) }
+					/>
+
+					<CheckboxControl
+						heading={ __( 'Hide Beds Label', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the Beds label.', 'idx-gutenberg' ) }
+						checked={ hideBedsLabel }
+						onChange={ hideBedsLabel => setAttributes( { hideBedsLabel } ) }
+					/>
+				</PanelRow>
+			);
+		}
+
+		const detailsOptionsBaths = () => {
+			if ( hideBaths ) {
+				return '';
+			}
+
+			return (
+				<PanelRow>
+					<CheckboxControl
+						heading={ __( 'Hide Baths Icon', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the Baths icon.', 'idx-gutenberg' ) }
+						checked={ hideBathsIcon }
+						onChange={ hideBathsIcon => setAttributes( { hideBathsIcon } ) }
+					/>
+
+					<CheckboxControl
+						heading={ __( 'Hide Baths Label', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the Baths label.', 'idx-gutenberg' ) }
+						checked={ hideBathsLabel }
+						onChange={ hideBathsLabel => setAttributes( { hideBathsLabel } ) }
+					/>
+				</PanelRow>
+			);
+		}
+
+		const detailsOptionsSqFt = () => {
+			if ( hideSqFt ) {
+				return '';
+			}
+
+			return (
+				<PanelRow>
+					<CheckboxControl
+						heading={ __( 'Hide SqFt Icon', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the SqFt icon.', 'idx-gutenberg' ) }
+						checked={ hideSqFtIcon }
+						onChange={ hideSqFtIcon => setAttributes( { hideSqFtIcon } ) }
+					/>
+
+					<CheckboxControl
+						heading={ __( 'Hide SqFt Label', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the SqFt label.', 'idx-gutenberg' ) }
+						checked={ hideSqFtLabel }
+						onChange={ hideSqFtLabel => setAttributes( { hideSqFtLabel } ) }
+					/>
+				</PanelRow>
+			);
+		}
+
+		const detailsOptionsAcres = () => {
+			if ( hideAcres ) {
+				return '';
+			}
+
+			return (
+				<PanelRow>
+					<CheckboxControl
+						heading={ __( 'Hide Acres Icon', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the Acres icon.', 'idx-gutenberg' ) }
+						checked={ hideAcresIcon }
+						onChange={ hideAcresIcon => setAttributes( { hideAcresIcon } ) }
+					/>
+
+					<CheckboxControl
+						heading={ __( 'Hide Acres Label', 'idx-gutenberg' ) }
+						label={ __( 'Yes', 'idx-gutenberg' ) }
+						help={ __( 'Check this box to hide the Acres label.', 'idx-gutenberg' ) }
+						checked={ hideAcresLabel }
+						onChange={ hideAcresLabel => setAttributes( { hideAcresLabel } ) }
+					/>
+				</PanelRow>
+			);
+		}
+
+		return [
 			<InspectorControls>
+				<PanelBody>
+					<SelectControl
+						label={ __( 'Display Format', 'idx-gutenberg' ) }
+						value={ showcaseFormat }
+						options={ [
+							{ value: 'showcase', label: __( 'Showcase', 'idx-gutenberg' ) },
+							{ value: 'carousel', label: __( 'Carousel', 'idx-gutenberg' ) },
+							//{ value: 'list', label: __( 'List', 'idx-gutenberg' ) },
+						] }
+						onChange={ showcaseFormat => setAttributes( { showcaseFormat } ) }
+					/>
+				</PanelBody>
 
 				<PanelBody>
 					<SelectControl
@@ -100,15 +287,30 @@ export default class Inspector extends Component {
 					/>
 				</PanelBody>
 
+				{ showcaseFormatOptions() }				
+
 				<PanelBody>
-					<RangeControl
-						beforeIcon="arrow-left-alt2"
-						afterIcon="arrow-right-alt2"
-						label={ __( 'Number of Columns', 'idx-gutenberg' ) }
-						value={ numberColumns }
-						onChange={ numberColumns => setAttributes( { numberColumns } ) }
-						min={ 1 }
-						max={ 8 }
+					<SelectControl
+						label={ __( 'Order By', 'idx-gutenberg' ) }
+						value={ orderBy }
+						options={ [
+							{ label: __( 'Price', 'idx-gutenberg' ), value: 'price' },
+							{ label: __( 'Beds', 'idx-gutenberg' ), value: 'beds' },
+							{ label: __( 'Baths', 'idx-gutenberg' ), value: 'baths' },
+							{ label: __( 'View Count', 'idx-gutenberg' ), value: 'view-count' },
+							{ label: __( 'Photo Count', 'idx-gutenberg' ), value: 'photo-count' },
+						] }
+						onChange={ orderBy => setAttributes( { orderBy } ) }
+					/>
+
+					<RadioControl
+						label={ __( 'Order', 'idx-gutenberg' ) }
+						selected={ order }
+						options={ [
+							{ label: __( 'Ascending', 'idx-gutenberg' ), value: 'ASC' },
+							{ label: __( 'Descending', 'idx-gutenberg' ), value: 'DESC' },
+						] }
+						onChange={ order => setAttributes( { order } ) }
 					/>
 				</PanelBody>
 
@@ -162,21 +364,8 @@ export default class Inspector extends Component {
 						onChange={ hideBeds => setAttributes( { hideBeds } ) }
 					/>
 
-					<CheckboxControl
-						heading={ __( 'Hide Beds Icon', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the Beds icon.', 'idx-gutenberg' ) }
-						checked={ hideBedsIcon }
-						onChange={ hideBedsIcon => setAttributes( { hideBedsIcon } ) }
-					/>
+					{ detailsOptionsBeds() }
 
-					<CheckboxControl
-						heading={ __( 'Hide Beds Label', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the Beds label.', 'idx-gutenberg' ) }
-						checked={ hideBedsLabel }
-						onChange={ hideBedsLabel => setAttributes( { hideBedsLabel } ) }
-					/>
 				</PanelBody>
 
 				<PanelBody
@@ -191,21 +380,8 @@ export default class Inspector extends Component {
 						onChange={ hideBaths => setAttributes( { hideBaths } ) }
 					/>
 
-					<CheckboxControl
-						heading={ __( 'Hide Baths Icon', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the Baths icon.', 'idx-gutenberg' ) }
-						checked={ hideBathsIcon }
-						onChange={ hideBathsIcon => setAttributes( { hideBathsIcon } ) }
-					/>
+					{ detailsOptionsBaths() }
 
-					<CheckboxControl
-						heading={ __( 'Hide Baths Label', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the Baths label.', 'idx-gutenberg' ) }
-						checked={ hideBathsLabel }
-						onChange={ hideBathsLabel => setAttributes( { hideBathsLabel } ) }
-					/>
 				</PanelBody>
 
 				<PanelBody
@@ -220,21 +396,8 @@ export default class Inspector extends Component {
 						onChange={ hideSqFt => setAttributes( { hideSqFt } ) }
 					/>
 
-					<CheckboxControl
-						heading={ __( 'Hide SqFt Icon', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the SqFt icon.', 'idx-gutenberg' ) }
-						checked={ hideSqFtIcon }
-						onChange={ hideSqFtIcon => setAttributes( { hideSqFtIcon } ) }
-					/>
+					{ detailsOptionsSqFt() }
 
-					<CheckboxControl
-						heading={ __( 'Hide SqFt Label', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the SqFt label.', 'idx-gutenberg' ) }
-						checked={ hideSqFtLabel }
-						onChange={ hideSqFtLabel => setAttributes( { hideSqFtLabel } ) }
-					/>
 				</PanelBody>
 
 				<PanelBody
@@ -249,21 +412,8 @@ export default class Inspector extends Component {
 						onChange={ hideAcres => setAttributes( { hideAcres } ) }
 					/>
 
-					<CheckboxControl
-						heading={ __( 'Hide Acres Icon', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the Acres icon.', 'idx-gutenberg' ) }
-						checked={ hideAcresIcon }
-						onChange={ hideAcresIcon => setAttributes( { hideAcresIcon } ) }
-					/>
+					{ detailsOptionsAcres() }
 
-					<CheckboxControl
-						heading={ __( 'Hide Acres Label', 'idx-gutenberg' ) }
-						label={ __( 'Yes', 'idx-gutenberg' ) }
-						help={ __( 'Check this box to hide the Acres label.', 'idx-gutenberg' ) }
-						checked={ hideAcresLabel }
-						onChange={ hideAcresLabel => setAttributes( { hideAcresLabel } ) }
-					/>
 				</PanelBody>
 
 				<PanelBody
@@ -288,6 +438,6 @@ export default class Inspector extends Component {
 				</PanelBody>
 
 			</InspectorControls>
-		);
+		];
 	}
 }

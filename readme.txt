@@ -1,4 +1,4 @@
-=== Idxberg ===
+=== IDXberg ===
 Contributors: davebonds, agentevolution, idxco
 Link: https://www.agentevolution.com/
 Tags: gutenberg, idx, impress, real estate

@@ -35,25 +35,33 @@ export default registerBlockType(
 	'idx-gutenberg/showcase',
 	{
 		title: __( 'Property Showcase', 'idx-gutenberg' ),
-		description: __( 'Display a grid of selected properties', 'idx-gutenberg' ),
+		description: __( 'Display properties in a variety of formats.', 'idx-gutenberg' ),
 		category: 'common',
 		icon,
 		keywords: [
 		__( 'showcase', 'idx-gutenberg' ),
+		__( 'carousel', 'idx-gutenberg' ),
 		__( 'idx', 'idx-gutenberg' ),
 		],
 		// Enable or disable support for features
 		supports: {
-			html: true
+			html: false
 		},
 		attributes,
 		edit: props => {
 			const {
 				attributes: {
+					showcaseFormat,
 					propertyType,
 					savedLinkID,
 					maxProperties,
 					numberColumns,
+					carouselVisibleProps,
+					carouselStagePadding,
+					carouselMargin,
+					carouselAutoplay,
+					orderBy,
+					order,
 					detailsPosition,
 					textAlignment,
 					hidePrice,
@@ -80,6 +88,7 @@ export default registerBlockType(
 
 			const classes = classnames(
 				className,
+				showcaseFormat,
 				'align-'+textAlignment,
 				{ 'hide-price': hidePrice },
 				{ 'hide-address': hideAddress },
@@ -109,10 +118,13 @@ export default registerBlockType(
 				</BlockControls>,
 				<div className={ classes } >
 					<ListingRender
+						showcaseFormat={ showcaseFormat }
 						propertyType={ propertyType }
 						savedLinkID={ savedLinkID }
 						maxProperties={ maxProperties }
 						numberColumns={ numberColumns }
+						orderBy={ orderBy }
+						order={ order }
 						detailsPosition={ detailsPosition }
 						textAlignment={ textAlignment }
 					/>

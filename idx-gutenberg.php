@@ -46,6 +46,12 @@ function idx_gutenberg_editor_scripts() {
 	$idx_api = new \IDX\Idx_Api();
 	$saved_links = $idx_api->idx_api_get_savedlinks();
 	wp_localize_script( 'idx-gutenberg-blocks-js', 'savedLinks', $saved_links );
+	// And details URL base.
+	$details_url = $idx_api->details_url();
+	wp_localize_script( 'idx-gutenberg-blocks-js', 'detailsURL', $details_url );
+	// And gallery URL
+	$gallery_url = $idx_api->photo_gallery_url();
+	wp_localize_script( 'idx-gutenberg-blocks-js', 'galleryURL', $gallery_url );
 
 	// Enqueue optional editor only styles
 	wp_enqueue_style(
@@ -87,6 +93,10 @@ function idx_gutenberg_scripts() {
 
 	// Enqueue FontAwesome for icons.
 	wp_enqueue_style( 'font-awesome-4.7.0' );
+
+	// Register Carousel scripts
+	wp_register_script( 'owl2', plugins_url( '/assets/js/owl2.carousel.min.js', __FILE__ ), array( 'jquery' ), false, true );
+	wp_register_style( 'owl2-css', plugins_url( '/assets/css/owl2.carousel.css', __FILE__ ) );
 }
 
 // Hook scripts function into block editor hook.

@@ -1,48 +1,14 @@
 /** Editor only */
-.wp-block-idx-gutenberg-showcase .property a:hover {
+.wp-block-idx-gutenberg-showcase .property a:hover,
+.wp-block-idx-gutenberg-showcase .property a.gallery:hover {
   cursor: not-allowed;
   pointer-events: none; }
 
 /** Editor and frontend - everything to EOF*/
+/** Showcase - General */
 .wp-block-idx-gutenberg-showcase {
-  /** Property details */ }
-  .wp-block-idx-gutenberg-showcase > div {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: auto auto auto auto;
-        grid-template-columns: auto auto auto auto;
-    -ms-grid-rows: auto;
-        grid-template-rows: auto;
-    grid-gap: 20px;
-    text-align: left; }
-  .wp-block-idx-gutenberg-showcase.align-center > div {
-    text-align: center; }
-  .wp-block-idx-gutenberg-showcase.align-right > div {
-    text-align: right; }
-  .wp-block-idx-gutenberg-showcase > div.columns-8 {
-    -ms-grid-columns: auto auto auto auto auto auto auto auto;
-        grid-template-columns: auto auto auto auto auto auto auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-7 {
-    -ms-grid-columns: auto auto auto auto auto auto auto;
-        grid-template-columns: auto auto auto auto auto auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-6 {
-    -ms-grid-columns: auto auto auto auto auto auto;
-        grid-template-columns: auto auto auto auto auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-5 {
-    -ms-grid-columns: auto auto auto auto auto;
-        grid-template-columns: auto auto auto auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-4 {
-    -ms-grid-columns: auto auto auto auto;
-        grid-template-columns: auto auto auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-3 {
-    -ms-grid-columns: auto auto auto;
-        grid-template-columns: auto auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-2 {
-    -ms-grid-columns: auto auto;
-        grid-template-columns: auto auto; }
-  .wp-block-idx-gutenberg-showcase > div.columns-1 {
-    -ms-grid-columns: auto;
-        grid-template-columns: auto; }
+  /** Property details */
+  /** Field display options */ }
   .wp-block-idx-gutenberg-showcase .property ul {
     display: -ms-flexbox;
     display: flex;
@@ -65,22 +31,81 @@
     margin: 0 4px; }
   .wp-block-idx-gutenberg-showcase.align-right .property ul li {
     margin: 0 0 0 8px; }
+  .wp-block-idx-gutenberg-showcase.hide-price .price,
+  .wp-block-idx-gutenberg-showcase.hide-address .address,
+  .wp-block-idx-gutenberg-showcase.hide-beds .beds,
+  .wp-block-idx-gutenberg-showcase.hide-beds-icon .beds i,
+  .wp-block-idx-gutenberg-showcase.hide-beds-label .beds .label,
+  .wp-block-idx-gutenberg-showcase.hide-baths .baths,
+  .wp-block-idx-gutenberg-showcase.hide-baths-icon .baths i,
+  .wp-block-idx-gutenberg-showcase.hide-baths-label .baths .label,
+  .wp-block-idx-gutenberg-showcase.hide-sqft .sqft,
+  .wp-block-idx-gutenberg-showcase.hide-sqft-icon .sqft i,
+  .wp-block-idx-gutenberg-showcase.hide-sqft-label .sqft .label,
+  .wp-block-idx-gutenberg-showcase.hide-acres .acres,
+  .wp-block-idx-gutenberg-showcase.hide-acres-icon .acres i,
+  .wp-block-idx-gutenberg-showcase.hide-acres-label .acres .label,
+  .wp-block-idx-gutenberg-showcase.hide-photo-count .gallery,
+  .wp-block-idx-gutenberg-showcase.hide-view-count .view-count {
+    display: none; }
 
-/** Field display options */
-.wp-block-idx-gutenberg-showcase.hide-price .price,
-.wp-block-idx-gutenberg-showcase.hide-address .address,
-.wp-block-idx-gutenberg-showcase.hide-beds .beds,
-.wp-block-idx-gutenberg-showcase.hide-beds-icon .beds i,
-.wp-block-idx-gutenberg-showcase.hide-beds-label .beds .label,
-.wp-block-idx-gutenberg-showcase.hide-baths .baths,
-.wp-block-idx-gutenberg-showcase.hide-baths-icon .baths i,
-.wp-block-idx-gutenberg-showcase.hide-baths-label .baths .label,
-.wp-block-idx-gutenberg-showcase.hide-sqft .sqft,
-.wp-block-idx-gutenberg-showcase.hide-sqft-icon .sqft i,
-.wp-block-idx-gutenberg-showcase.hide-sqft-label .sqft .label,
-.wp-block-idx-gutenberg-showcase.hide-acres .acres,
-.wp-block-idx-gutenberg-showcase.hide-acres-icon .acres i,
-.wp-block-idx-gutenberg-showcase.hide-acres-label .acres .label,
-.wp-block-idx-gutenberg-showcase.hide-photo-count .gallery,
-.wp-block-idx-gutenberg-showcase.hide-view-count .view-count {
+/** Carousel format */
+.wp-block-idx-gutenberg-showcase.carousel > div {
+  position: relative; }
+
+.wp-block-idx-gutenberg-showcase.carousel img,
+.wp-block-idx-gutenberg-showcase.carousel .owl-dots {
   display: none; }
+
+/** Showcase format */
+.wp-block-idx-gutenberg-showcase.showcase > div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto auto;
+      grid-template-columns: auto auto auto auto;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  grid-gap: 20px;
+  text-align: left; }
+
+.wp-block-idx-gutenberg-showcase.showcase.align-left > div,
+.wp-block-idx-gutenberg-showcase.showcase.align-undefined > div {
+  text-align: left; }
+
+.wp-block-idx-gutenberg-showcase.showcase.align-center > div {
+  text-align: center; }
+
+.wp-block-idx-gutenberg-showcase.showcase.align-right > div {
+  text-align: right; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-8 {
+  -ms-grid-columns: auto auto auto auto auto auto auto auto;
+      grid-template-columns: auto auto auto auto auto auto auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-7 {
+  -ms-grid-columns: auto auto auto auto auto auto auto;
+      grid-template-columns: auto auto auto auto auto auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-6 {
+  -ms-grid-columns: auto auto auto auto auto auto;
+      grid-template-columns: auto auto auto auto auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-5 {
+  -ms-grid-columns: auto auto auto auto auto;
+      grid-template-columns: auto auto auto auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-4 {
+  -ms-grid-columns: auto auto auto auto;
+      grid-template-columns: auto auto auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-3 {
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-2 {
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto; }
+
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-1 {
+  -ms-grid-columns: auto;
+      grid-template-columns: auto; }

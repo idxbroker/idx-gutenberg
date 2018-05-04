@@ -77,6 +77,12 @@ class Idx_Wp_Api {
 		return true;
 	}
 
+	/**
+	 * Returns IDX API data given a method and level.
+	 *
+	 * @param  object $request The GET request.
+	 * @return class           Prepared WP_REST_Response class.
+	 */
 	public function idx_api_data_return( $request ) {
 		// Ensure we're using an instance of the WP_REST_Response class.
 		$response = rest_ensure_response( $request );
@@ -101,9 +107,14 @@ class Idx_Wp_Api {
 
 		// Return the response.
 		return $response;
-
 	}
 
+	/**
+	 * Returns property data given a property type and optional saved link ID.
+	 *
+	 * @param  object $request The GET request.
+	 * @return class           Prepared WP_REST_Response class.
+	 */
 	public function idx_api_property_data_return( $request ) {
 		// Ensure we're using an instance of the WP_REST_Response class.
 		$response = rest_ensure_response( $request );
@@ -152,7 +163,6 @@ class Idx_Wp_Api {
 
 		// Return the response.
 		return $response;
-
 	}
 }
 
