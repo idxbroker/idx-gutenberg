@@ -65,6 +65,7 @@ export default registerBlockType(
 					order,
 					detailsPosition,
 					textAlignment,
+					blockAlignment,
 					hidePrice,
 					hideAddress,
 					hideBeds,
@@ -82,6 +83,7 @@ export default registerBlockType(
 					hidePhotoCount,
 					hideViewCount
 				},
+				listings,
 				id,
 				attributes,
 				isSelected,
@@ -93,6 +95,7 @@ export default registerBlockType(
 				showcaseFormat,
 				id,
 				'align-'+textAlignment,
+				'block-align-'+blockAlignment,
 				{ 'hide-price': hidePrice },
 				{ 'hide-address': hideAddress },
 				{ 'hide-beds': hideBeds },
@@ -116,6 +119,7 @@ export default registerBlockType(
 			return [
 				<div className={ classes } >
 					<ListingRender
+						listings={ listings }
 						id={ id }
 						showcaseFormat={ showcaseFormat }
 						propertyType={ propertyType }
@@ -126,10 +130,15 @@ export default registerBlockType(
 						order={ order }
 						detailsPosition={ detailsPosition }
 						textAlignment={ textAlignment }
+						blockAlignment={ blockAlignment }
 					/>
 				</div>,
 				isSelected && <Inspector { ...{ setAttributes, ...props} } />,
 				<BlockControls>
+					<BlockAlignmentToolbar
+						value={ blockAlignment }
+						onChange={ blockAlignment => setAttributes( { blockAlignment } ) }
+					/>
 					<AlignmentToolbar
 						value={ textAlignment }
 						onChange={ textAlignment => setAttributes( { textAlignment } ) }

@@ -52,7 +52,12 @@ const attributes = {
 		default: 'below'
 	},
 	textAlignment: {
-		type: 'string'
+		type: 'string',
+		default: 'none'
+	},
+	blockAlignment: {
+		type: 'string',
+		default: 'wide'
 	},
 	hidePrice: {
 		type: 'boolean',

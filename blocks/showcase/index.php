@@ -4,7 +4,7 @@
  *
  * @return void
  */
-function idx_gutenberg_register_blocks() {
+function idx_gutenberg_register_showcase_block() {
 	// Hook server side rendering into render callback
 	register_block_type( 'idx-gutenberg/showcase', [
 		'render_callback' => 'idx_gutenberg_showcase_block_render',
@@ -13,7 +13,7 @@ function idx_gutenberg_register_blocks() {
 
 // Make sure that Gutenberg is available, then register our block.
 if ( function_exists( 'register_block_type' ) ) {
-	add_action( 'init', 'idx_gutenberg_register_blocks' );
+	add_action( 'init', 'idx_gutenberg_register_showcase_block' );
 }
 
 /**
@@ -22,9 +22,9 @@ if ( function_exists( 'register_block_type' ) ) {
  * @param  $attributes Registered block props.attributes.
  */
 function idx_gutenberg_showcase_block_render( $attributes ) {
-	//var_dump($attributes);
 	// Set defaults.
 	$defaults = array(
+		'className' => null,
 		'showcaseFormat' => 'showcase',
 		'propertyType' => 'featured',
 		'savedLinkID' => null,
@@ -364,6 +364,9 @@ function idx_gutenberg_maybe_add_disclaimer_and_courtesy( $property ) {
  * @return string              String of classes.
  */
 function idx_gutenberg_get_showcase_block_classes( $attributes ) {
+	// Custom class name.
+	$classes[] = ( isset( $attributes['className'] ) ) ? $attributes['className'] : '';
+
 	// Showcase Format
 	$classes[] = ( 'carousel' === $attributes['showcaseFormat'] ) ? 'owl-carousel owl-theme carousel' : 'showcase';
 

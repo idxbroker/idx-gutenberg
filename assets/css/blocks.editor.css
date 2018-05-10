@@ -124,3 +124,4 @@
 .wp-block-idx-gutenberg-showcase.list > div.columns-1 {
   -ms-grid-columns: auto;
       grid-template-columns: auto; }
+/** Editor only */

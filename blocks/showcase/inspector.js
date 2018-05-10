@@ -51,6 +51,7 @@ export default class Inspector extends Component {
 				order,
 				detailsPosition,
 				textAlignment,
+				blockAlignment,
 				hidePrice,
 				hideAddress,
 				hideBeds,
