@@ -22,6 +22,7 @@ if ( function_exists( 'register_block_type' ) ) {
  * @param  $attributes Registered block props.attributes.
  */
 function idx_gutenberg_showcase_block_render( $attributes ) {
+	//var_dump($attributes);
 	// Set defaults.
 	$defaults = array(
 		'showcaseFormat' => 'showcase',
@@ -55,9 +56,6 @@ function idx_gutenberg_showcase_block_render( $attributes ) {
 	// Merge defaults with saved attributes.
 	$attributes = array_merge( $defaults, $attributes );
 
-	// Generate unique block ID for carousel to target.
-	$block_id = 'idx-showcase--' . md5( implode( ',', $attributes ) );
-
 	// Enqueue OWL carousel scripts if showcaseFormat is carousel and add inline script.
 	if ( 'carousel' === $attributes['showcaseFormat'] ) {
 		$prev_link = '<i class=\"fa fa-chevron-circle-left\"></i><span>Prev</span>';
@@ -66,34 +64,36 @@ function idx_gutenberg_showcase_block_render( $attributes ) {
 		wp_enqueue_style( 'owl2-css' );
 		$inline_script = '
 			 jQuery(document).ready(function( $ ){
-	            $("#' . $block_id . '").owlCarousel({
-	                items: ' . $attributes['carouselVisibleProps'] . ',
-	                autoplay: ' . $attributes['carouselAutoplay'] . ',
-	                nav: true,
-	                navText: ["' . $prev_link . '", "' . $next_link . '"],
-	                loop: true,
-	                lazyLoad: true,
-	                addClassActive: true,
-	                itemsScaleUp: true,
-	                addClassActive: true,
-	                itemsScaleUp: true,
-	                navContainerClass: "owl-controls owl-nav",
-	                responsiveClass:true,
-	                responsive:{
-	                    0:{
-	                        items: 1,
-	                        nav: true,
-	                        margin: 0 
-	                    },
-	                    450:{
-	                        items: ' . round( $attributes['carouselVisibleProps'] / 2 ) . '
-	                    },
-	                    800:{
-	                        items: ' . $attributes['carouselVisibleProps'] . '
-	                    }
-	                }
-	            });
-	        });
+				$("#' . $attributes['blockID'] . '").owlCarousel({
+					items: ' . $attributes['carouselVisibleProps'] . ',
+					autoplay: ' . $attributes['carouselAutoplay'] . ',
+					nav: true,
+					stagePadding: ' . $attributes['carouselStagePadding'] . ',
+					margin: ' . $attributes['carouselMargin'] . ',
+					navText: ["' . $prev_link . '", "' . $next_link . '"],
+					loop: true,
+					lazyLoad: true,
+					addClassActive: true,
+					itemsScaleUp: true,
+					addClassActive: true,
+					itemsScaleUp: true,
+					navContainerClass: "owl-controls owl-nav",
+					responsiveClass:true,
+					responsive:{
+						0:{
+							items: 1,
+							nav: true,
+							margin: 0 
+						},
+						450:{
+							items: ' . round( $attributes['carouselVisibleProps'] / 2 ) . '
+						},
+						800:{
+							items: ' . $attributes['carouselVisibleProps'] . '
+						}
+					}
+				});
+			});
 		';
 		wp_add_inline_script( 'owl2', $inline_script, 'after' );
 	}
@@ -104,9 +104,10 @@ function idx_gutenberg_showcase_block_render( $attributes ) {
 		$id = $attributes['savedLinkID'];
 		if ( empty( $attributes['savedLinkID'] ) || ! is_numeric( $attributes['savedLinkID'] ) ) {
 			$properties = null;
+		} else {
+			// Get the properties.
+			$properties = $idx_api->saved_link_properties( (int) $attributes['savedLinkID'] );
 		}
-		// Get the properties.
-		$properties = $idx_api->saved_link_properties( (int) $attributes['savedLinkID'] );
 	} elseif ( in_array( $attributes['propertyType'], array( 'featured', 'soldpending', 'supplemental' ), true ) ) {
 		// Get the properties.
 		$properties = $idx_api->client_properties( $attributes['propertyType'] );
@@ -121,8 +122,10 @@ function idx_gutenberg_showcase_block_render( $attributes ) {
 	$classes = idx_gutenberg_get_showcase_block_classes( $attributes );
 
 	// Start the markup and maybe add column classes.
-	$markup = '<div id="' . $block_id . '" class="wp-block-idx-gutenberg-showcase ' . $classes . '">';
+	$markup = '<div id="' . $attributes['blockID'] . '" class="wp-block-idx-gutenberg-showcase ' . $classes . '">';
 	if ( 'showcase' === $attributes['showcaseFormat'] ) {
+		$markup .= '<div class="columns-' . $attributes['numberColumns'] . '">';
+	} elseif ( 'list' === $attributes['showcaseFormat'] ) {
 		$markup .= '<div class="columns-' . $attributes['numberColumns'] . '">';
 	}
 
@@ -137,6 +140,8 @@ function idx_gutenberg_showcase_block_render( $attributes ) {
 
 	// Markup close.
 	if ( 'showcase' === $attributes['showcaseFormat'] ) {
+		$markup .= '</div><!-- end .columns-' . $attributes['numberColumns'] . ' -->';
+	} elseif ( 'list' === $attributes['showcaseFormat'] ) {
 		$markup .= '</div><!-- end .columns-' . $attributes['numberColumns'] . ' -->';
 	}
 
@@ -154,7 +159,7 @@ function idx_gutenberg_get_showcase_property_markup( $format, $property ) {
 	$details_url = $idx_api->details_url();
 
 	// Get gallery URL.
-	$gallery_url = $idx_api->photo_gallery_url();
+	$gallery_url = $idx_api->subdomain_url() . 'photogallery/';
 
 	// Get no photo URL.
 	$no_photo_url = apply_filters( 'idx_gutenberg_default_no_photo', 'https://mlsphotos.idxbroker.com/defaultNoPhoto/noPhotoFull.png' );
@@ -208,7 +213,16 @@ function idx_gutenberg_get_showcase_property_markup( $format, $property ) {
 			break;
 
 		case 'list':
-			$markup = '';
+			$markup = sprintf( idx_gutenberg_get_showcase_block_template( $format ),
+				( isset( $property['fullDetailsURL'] ) ) ? $property['fullDetailsURL'] : $details_url . '/' . $property['detailsURL'],
+				$property['address'],
+				$property['listingPrice'],
+				$property['price'],
+				$property['address'],
+				$property['cityName'],
+				$property['state'],
+				$property['zipcode']
+			);
 			break;
 
 		default:
@@ -280,11 +294,12 @@ function idx_gutenberg_get_showcase_block_template( $format ) {
 				<li class="property" itemtype="http://schema.org/Product" itemscope>
 					<a href="%s">
 						<meta itemprop="name" content="%s">
-						<div class="details" itemtype="http://schema.org/SingleFamilyResidence" itemscope>
-							<div itemtype="http://schema.org/Offer" itemscope itemprop="offers"><span class="price">%s</span><meta itemprop="price" content="%s"><meta itemprop="priceCurrency" content="USD"></div>
-							<p class="address" itemscope="" itemtype="http://schema.org/PostalAddress"><span class="address" itemprop="streetAddress">%s</span>
-							<span class="city" itemprop="addressLocality">%s</span>, <span class="state" itemprop="addressRegion">%s</span> <span class="zipcode" itemprop="postalCode">%s</span></p>
-						</div>
+						<span class="details" itemtype="http://schema.org/SingleFamilyResidence" itemscope>
+							<span itemtype="http://schema.org/Offer" itemscope itemprop="offers"><span class="price">%s</span><meta itemprop="price" content="%s"><meta itemprop="priceCurrency" content="USD"></span>
+							<span class="separator"> &mdash; </span>
+							<span class="address" itemscope="" itemtype="http://schema.org/PostalAddress"><span class="address" itemprop="streetAddress">%s</span>
+							<span class="city" itemprop="addressLocality">%s</span>, <span class="state" itemprop="addressRegion">%s</span> <span class="zipcode" itemprop="postalCode">%s</span></span>
+						</span>
 					</a>
 				</li>
 			';

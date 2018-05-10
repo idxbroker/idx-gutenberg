@@ -53,12 +53,15 @@
 .wp-block-idx-gutenberg-showcase.carousel > div {
   position: relative; }
 
-.wp-block-idx-gutenberg-showcase.carousel img,
+.wp-block-idx-gutenberg-showcase.carousel img {
+  display: block; }
+
 .wp-block-idx-gutenberg-showcase.carousel .owl-dots {
   display: none; }
 
-/** Showcase format */
-.wp-block-idx-gutenberg-showcase.showcase > div {
+/** Showcase & List format */
+.wp-block-idx-gutenberg-showcase.showcase > div,
+.wp-block-idx-gutenberg-showcase.list > div {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto auto auto auto;
@@ -69,43 +72,55 @@
   text-align: left; }
 
 .wp-block-idx-gutenberg-showcase.showcase.align-left > div,
-.wp-block-idx-gutenberg-showcase.showcase.align-undefined > div {
+.wp-block-idx-gutenberg-showcase.showcase.align-undefined > div,
+.wp-block-idx-gutenberg-showcase.list.align-left > div,
+.wp-block-idx-gutenberg-showcase.list.align-undefined > div {
   text-align: left; }
 
-.wp-block-idx-gutenberg-showcase.showcase.align-center > div {
+.wp-block-idx-gutenberg-showcase.showcase.align-center > div,
+.wp-block-idx-gutenberg-showcase.list.align-center > div {
   text-align: center; }
 
-.wp-block-idx-gutenberg-showcase.showcase.align-right > div {
+.wp-block-idx-gutenberg-showcase.showcase.align-right > div,
+.wp-block-idx-gutenberg-showcase.list.align-right > div {
   text-align: right; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-8 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-8,
+.wp-block-idx-gutenberg-showcase.list > div.columns-8 {
   -ms-grid-columns: auto auto auto auto auto auto auto auto;
       grid-template-columns: auto auto auto auto auto auto auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-7 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-7,
+.wp-block-idx-gutenberg-showcase.list > div.columns-7 {
   -ms-grid-columns: auto auto auto auto auto auto auto;
       grid-template-columns: auto auto auto auto auto auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-6 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-6,
+.wp-block-idx-gutenberg-showcase.list > div.columns-6 {
   -ms-grid-columns: auto auto auto auto auto auto;
       grid-template-columns: auto auto auto auto auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-5 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-5,
+.wp-block-idx-gutenberg-showcase.list > div.columns-5 {
   -ms-grid-columns: auto auto auto auto auto;
       grid-template-columns: auto auto auto auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-4 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-4,
+.wp-block-idx-gutenberg-showcase.list > div.columns-4 {
   -ms-grid-columns: auto auto auto auto;
       grid-template-columns: auto auto auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-3 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-3,
+.wp-block-idx-gutenberg-showcase.list > div.columns-3 {
   -ms-grid-columns: auto auto auto;
       grid-template-columns: auto auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-2 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-2,
+.wp-block-idx-gutenberg-showcase.list > div.columns-2 {
   -ms-grid-columns: auto auto;
       grid-template-columns: auto auto; }
 
-.wp-block-idx-gutenberg-showcase.showcase > div.columns-1 {
+.wp-block-idx-gutenberg-showcase.showcase > div.columns-1,
+.wp-block-idx-gutenberg-showcase.list > div.columns-1 {
   -ms-grid-columns: auto;
       grid-template-columns: auto; }

@@ -59,13 +59,16 @@
 	> div {
 		position: relative;
 	}
-	img,
+	img {
+		display: block;
+	}
 	.owl-dots {
 		display: none;
 	}
 }
-/** Showcase format */
-.wp-block-idx-gutenberg-showcase.showcase {
+/** Showcase & List format */
+.wp-block-idx-gutenberg-showcase.showcase,
+.wp-block-idx-gutenberg-showcase.list {
 	> div {
 		display: grid;
 		grid-template-columns: auto auto auto auto;

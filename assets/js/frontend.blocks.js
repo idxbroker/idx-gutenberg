@@ -68,7 +68,7 @@
 /***/ 153:
 /***/ (function(module, exports) {
 
-eval("console.log('Frontend Block JS');//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTUzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vYmxvY2tzL2Zyb250ZW5kLmpzP2QyZDUiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc29sZS5sb2coJ0Zyb250ZW5kIEJsb2NrIEpTJyk7XG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9ibG9ja3MvZnJvbnRlbmQuanNcbi8vIG1vZHVsZSBpZCA9IDE1M1xuLy8gbW9kdWxlIGNodW5rcyA9IDEiXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///153\n");
+eval("//console.log( 'Frontend Block JS' );//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTUzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vYmxvY2tzL2Zyb250ZW5kLmpzP2QyZDUiXSwic291cmNlc0NvbnRlbnQiOlsiLy9jb25zb2xlLmxvZyggJ0Zyb250ZW5kIEJsb2NrIEpTJyApO1xuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vYmxvY2tzL2Zyb250ZW5kLmpzXG4vLyBtb2R1bGUgaWQgPSAxNTNcbi8vIG1vZHVsZSBjaHVua3MgPSAxIl0sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///153\n");
 
 /***/ })
 

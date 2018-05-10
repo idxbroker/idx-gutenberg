@@ -1,5 +1,8 @@
 // Set for each piece of dynamic data used in your block
 const attributes = {
+	blockID: {
+		type: 'string',
+	},
 	showcaseFormat: {
 		type: 'string',
 		default: 'showcase'

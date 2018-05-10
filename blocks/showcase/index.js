@@ -51,6 +51,7 @@ export default registerBlockType(
 		edit: props => {
 			const {
 				attributes: {
+					blockID,
 					showcaseFormat,
 					propertyType,
 					savedLinkID,
@@ -81,6 +82,7 @@ export default registerBlockType(
 					hidePhotoCount,
 					hideViewCount
 				},
+				id,
 				attributes,
 				isSelected,
 				className,
@@ -89,6 +91,7 @@ export default registerBlockType(
 			const classes = classnames(
 				className,
 				showcaseFormat,
+				id,
 				'align-'+textAlignment,
 				{ 'hide-price': hidePrice },
 				{ 'hide-address': hideAddress },
@@ -107,17 +110,13 @@ export default registerBlockType(
 				{ 'hide-photo-count': hidePhotoCount },
 				{ 'hide-view-count': hideViewCount },
 			);
-			
+
+			const setBlockID = () => setAttributes( { blockID: id } );
+
 			return [
-				isSelected && <Inspector { ...{ setAttributes, ...props} } />,
-				<BlockControls>
-					<AlignmentToolbar
-						value={ textAlignment }
-						onChange={ textAlignment => setAttributes( { textAlignment } ) }
-					/>
-				</BlockControls>,
 				<div className={ classes } >
 					<ListingRender
+						id={ id }
 						showcaseFormat={ showcaseFormat }
 						propertyType={ propertyType }
 						savedLinkID={ savedLinkID }
@@ -128,7 +127,15 @@ export default registerBlockType(
 						detailsPosition={ detailsPosition }
 						textAlignment={ textAlignment }
 					/>
-				</div>
+				</div>,
+				isSelected && <Inspector { ...{ setAttributes, ...props} } />,
+				<BlockControls>
+					<AlignmentToolbar
+						value={ textAlignment }
+						onChange={ textAlignment => setAttributes( { textAlignment } ) }
+					/>
+				</BlockControls>,
+				setBlockID(),
 			];
 		}, // end edit
 		save: function( props ) {

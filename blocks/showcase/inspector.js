@@ -37,6 +37,7 @@ export default class Inspector extends Component {
 	render() {
 		const {
 			attributes: {
+				blockID,
 				showcaseFormat,
 				propertyType,
 				savedLinkID,
@@ -67,11 +68,11 @@ export default class Inspector extends Component {
 				hidePhotoCount,
 				hideViewCount
 			},
-			setAttributes, className } = this.props;
+			id, setAttributes, className } = this.props;
 
 		// Define additional display options as const to conditionally display them.
 		const showcaseFormatOptions = () => {
-			if ( 'showcase' === showcaseFormat ) {
+			if ( 'showcase' === showcaseFormat || 'list' === showcaseFormat ) {
 				return (
 					<PanelBody>
 						<RangeControl
@@ -246,7 +247,7 @@ export default class Inspector extends Component {
 						options={ [
 							{ value: 'showcase', label: __( 'Showcase', 'idx-gutenberg' ) },
 							{ value: 'carousel', label: __( 'Carousel', 'idx-gutenberg' ) },
-							//{ value: 'list', label: __( 'List', 'idx-gutenberg' ) },
+							{ value: 'list', label: __( 'List', 'idx-gutenberg' ) },
 						] }
 						onChange={ showcaseFormat => setAttributes( { showcaseFormat } ) }
 					/>
@@ -311,18 +312,6 @@ export default class Inspector extends Component {
 							{ label: __( 'Descending', 'idx-gutenberg' ), value: 'DESC' },
 						] }
 						onChange={ order => setAttributes( { order } ) }
-					/>
-				</PanelBody>
-
-				<PanelBody>
-					<RadioControl
-						label={ __( 'Details Positioning', 'idx-gutenberg' ) }
-						selected={ detailsPosition }
-						options={ [
-							{ label: __( 'Overlay', 'idx-gutenberg' ), value: 'overlay' },
-							{ label: __( 'Below', 'idx-gutenberg' ), value: 'below' },
-						] }
-						onChange={ detailsPosition => setAttributes( { detailsPosition } ) }
 					/>
 				</PanelBody>
 

@@ -16,8 +16,8 @@ class ListingRender extends Component {
 	render() {
 		const listings = get( this.props.listings, 'data', [] );
 
-		const containerClass = ( 'carousel' === this.props.showcaseFormat ) ? `owl-carousel owl-theme` : `columns-${ this.props.numberColumns }`;
-		
+		const containerClass = ( 'carousel' === this.props.showcaseFormat ) ? `${ this.props.id } owl-carousel owl-theme` : `${ this.props.id } columns-${ this.props.numberColumns }`;
+
 		if ( this.props.listings.isLoading ) {
 			return (
 				<p className={ this.props.className } >
@@ -70,35 +70,52 @@ class ListingRender extends Component {
 		}
 
 		// For debugging listing data.
-		// console.log(listings);
+		console.log(listings);
 
-		return [
-				<div className={ containerClass } >
-					{ listings.slice( 0, this.props.maxProperties ).map( ( listing, i ) =>
-						<div key={ i } className='property'>
-							<div className='image'>
-								<a>
-									<img className='image' src={ ( listing.image[0].url ) ? listing.image[0].url : 'https://mlsphotos.idxbroker.com/defaultNoPhoto/noPhotoFull.png' } alt={ ( listing.image[0].caption ) ? listing.image[0].caption : listing.address } />
-									<span className='view-count'><span className='screen-reader-text'>Views: </span><i className='fa fa-eye'></i> { listing.viewCount}</span>
-								
-									<div className='details'>
-										<p className='price'>{ listing.listingPrice }</p>
-										<p className='address'>{ listing.address }</p>
-										<ul>
-											<li className='beds'><span className='label'>Beds:</span> { listing.bedrooms } <i className='fa fa-bed'></i></li>
-											<li className='baths'><span className='label'>Baths:</span> { listing.totalBaths } <i className='fa fa-bath'></i></li>
-											<li className='sqft'><span className='label'>SqFt:</span> { listing.sqFt } <i className='fa fa-superscript'></i></li>
-											<li className='acres'><span className='label'>Acres:</span> { listing.acres } <i className='fa fa-arrows'></i></li>
-										</ul>
-									</div>
-								</a>
-								<a className='gallery' href={ galleryURL+'/'+listing.detailsURL }><span className='label screen-reader-text'>Photo count: </span><i className='fa fa-file-image-o'></i> { listing.mlsPhotoCount}</a>
-							</div>	
-						</div>
-					) }
-				</div>,
-		];
+		if ( 'list' === this.props.showcaseFormat ) {
+			return [
+					<div className={ containerClass } >
+						{ listings.slice( 0, this.props.maxProperties ).map( ( listing, i ) =>
+							<li key={ i } className='property'>
+									<a>
+										<span className='price'>{ listing.listingPrice }</span>
+										<span className='separator'> – </span>
+										<span className='address'>{ listing.address }</span>
+									</a>
+							</li>
+						) }
+					</div>,
+			];
+		} else {
+			return [
+					<div className={ containerClass } >
+						{ listings.slice( 0, this.props.maxProperties ).map( ( listing, i ) =>
+							<div key={ i } className='property'>
+								<div className='image'>
+									<a>
+										<img className='image' src={ ( listing.image[0].url ) ? listing.image[0].url : 'https://mlsphotos.idxbroker.com/defaultNoPhoto/noPhotoFull.png' } alt={ ( listing.image[0].caption ) ? listing.image[0].caption : listing.address } />
+										<span className='view-count'><span className='screen-reader-text'>Views: </span><i className='fa fa-eye'></i> { listing.viewCount}</span>
+									
+										<div className='details'>
+											<p className='price'>{ listing.listingPrice }</p>
+											<p className='address'>{ listing.address }</p>
+											<ul>
+												<li className='beds'><span className='label'>Beds:</span> { listing.bedrooms } <i className='fa fa-bed'></i></li>
+												<li className='baths'><span className='label'>Baths:</span> { listing.totalBaths } <i className='fa fa-bath'></i></li>
+												<li className='sqft'><span className='label'>SqFt:</span> { listing.sqFt } <i className='fa fa-superscript'></i></li>
+												<li className='acres'><span className='label'>Acres:</span> { listing.acres } <i className='fa fa-arrows'></i></li>
+											</ul>
+										</div>
+									</a>
+									<a className='gallery' href={ galleryURL+'/'+listing.detailsURL }><span className='label screen-reader-text'>Photo count: </span><i className='fa fa-file-image-o'></i> { listing.mlsPhotoCount}</a>
+								</div>  
+							</div>
+						) }
+					</div>,
+			];
+		}
 	};
+
 }
 
 const applyWithAPIData = withAPIData( ( props ) => {
