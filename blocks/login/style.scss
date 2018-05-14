@@ -1,0 +1,14 @@
+.wp-block-idx-gutenberg-login {
+	&.show-login form.signup,
+	&.show-signup form.login,
+	.recaptcha,
+	.phone {
+		display: none;	
+	}
+	&.show-signup form.signup,
+	&.show-login form.login,
+	&.show-recaptcha .recaptcha,
+	&.require-phone .phone {
+		display: block;
+	}
+}

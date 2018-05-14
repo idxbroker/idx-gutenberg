@@ -20,7 +20,7 @@ const {
 } = wp.components;
 
 // Build our options for savedLinkID SelectControl
-const savedLinkOptions = savedLinks.map( ( link ) => ( {
+const savedLinkOptions = idxGbSavedLinks.map( ( link ) => ( {
 	value: link.id,
 	label: link.linkTitle,
 } ) );

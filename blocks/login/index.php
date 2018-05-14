@@ -24,10 +24,15 @@ if ( function_exists( 'register_block_type' ) ) {
 function idx_gutenberg_login_block_render( $attributes ) {
 	// Set defaults.
 	$defaults = array(
-		'defaultDisplay' => 'signup',
-		'showRecaptcha'  => true,
-		'textAlignment'  => 'left',
-		'blockAlignment' => 'none',
+		'defaultDisplay'      => 'signup',
+		'showRecaptcha'       => true,
+		'textAlignment'       => 'left',
+		'blockAlignment'      => 'none',
+		'signupRequirePhone'  => false,
+		'signupButtonText'    => 'Sign Up',
+		'loginButtonText'     => 'Login',
+		'buttonColor'         => '',
+		'assignedAgent'       => null,
 	);
 	// Merge defaults with saved attributes.
 	$attributes = array_merge( $defaults, $attributes );
@@ -40,7 +45,7 @@ function idx_gutenberg_login_block_render( $attributes ) {
 
 	$markup .= '</div><!-- end .wp-block-idx-gutenberg-login -->';
 
-	return;
+	return $markup;
 }
 
 /**
@@ -50,6 +55,9 @@ function idx_gutenberg_login_block_render( $attributes ) {
  * @return string              String of classes.
  */
 function idx_gutenberg_get_login_block_classes( $attributes ) {
+	// Custom class name.
+	$classes[] = ( isset( $attributes['className'] ) ) ? $attributes['className'] : '';
+
 	// Default display.
 	$classes[] = ( 'signup' === $attributes['defaultDisplay'] ) ? 'show-signup' : 'show-login';
 

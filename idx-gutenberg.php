@@ -16,6 +16,7 @@
 
 //  Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
+const IDXGB_API_DEFAULT_VERSION = '1.5.0';
 
 // Deactivate if IMPress plugin not active.
 register_activation_hook( __FILE__, 'idx_core_dependency' );
@@ -42,18 +43,19 @@ function idx_gutenberg_editor_scripts() {
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path )
 	);
 
-	//wp_enqueue_script( 'owl2', plugins_url( '/assets/js/owl2.carousel.min.js', __FILE__ ), array( 'wp-blocks', 'jquery' ), false, false );
-
 	// Localize our saved links for selection in the editor.
 	$idx_api = new \IDX\Idx_Api();
 	$saved_links = $idx_api->idx_api_get_savedlinks();
-	wp_localize_script( 'idx-gutenberg-blocks-js', 'savedLinks', $saved_links );
+	wp_localize_script( 'idx-gutenberg-blocks-js', 'idxGbSavedLinks', $saved_links );
+	// And Agents.
+	$agents = $idx_api->idx_api( 'agents', IDXGB_API_DEFAULT_VERSION, 'clients', array(), 7200, 'GET', true );
+	wp_localize_script( 'idx-gutenberg-blocks-js', 'idxGbAgents', $agents['agent'] );
 	// And details URL base.
 	$details_url = $idx_api->details_url();
-	wp_localize_script( 'idx-gutenberg-blocks-js', 'detailsURL', $details_url );
+	wp_localize_script( 'idx-gutenberg-blocks-js', 'idxGbDetailsUrl', $details_url );
 	// And gallery URL
 	$gallery_url = $idx_api->subdomain_url() . 'photogallery/';
-	wp_localize_script( 'idx-gutenberg-blocks-js', 'galleryURL', $gallery_url );
+	wp_localize_script( 'idx-gutenberg-blocks-js', 'idxGbGalleryUrl', $gallery_url );
 
 	// Enqueue optional editor only styles
 	wp_enqueue_style(
@@ -63,7 +65,6 @@ function idx_gutenberg_editor_scripts() {
 		filemtime( plugin_dir_path( __FILE__ ) . $editor_style_path )
 	);
 
-	//wp_enqueue_style( 'owl2-css', plugins_url( '/assets/css/owl2.carousel.css', __FILE__ ) );
 }
 
 // Hook scripts function into block editor hook
@@ -82,9 +83,14 @@ function idx_gutenberg_scripts() {
 	wp_enqueue_script(
 		'idx-gutenberg-blocks-frontend-js',
 		plugins_url( $block_path, __FILE__ ),
-		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
+		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'jquery' ],
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path )
 	);
+
+	// Localize Subdomain URL
+	$idx_api = new \IDX\Idx_Api();
+	$gallery_url = $idx_api->subdomain_url();
+	wp_localize_script( 'idx-gutenberg-blocks-frontend-js', 'idxGbSubdomainUrl', $gallery_url );
 
 	// Enqueue frontend and editor block styles.
 	wp_enqueue_style(

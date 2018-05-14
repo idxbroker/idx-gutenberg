@@ -5,6 +5,7 @@ import icon from './icon';
 import classnames from 'classnames';
 import Inspector from './inspector';
 import attributes from './attributes';
+import LoginSignupForm from './login-render';
 import './style.scss';
 import './editor.scss';
 
@@ -51,6 +52,11 @@ export default registerBlockType(
 					showRecaptcha,
 					textAlignment,
 					blockAlignment,
+					signupRequirePhone,
+					signupButtonText,
+					loginButtonText,
+					buttonColor,
+					assignedAgent,
 				},
 				id,
 				attributes,
@@ -62,10 +68,19 @@ export default registerBlockType(
 				className,
 				'show-'+defaultDisplay,
 				{ 'show-recaptcha': showRecaptcha },
+				{ 'require-phone': signupRequirePhone },
 			);
 
 			return [
 				<div className={ classes } >
+					<LoginSignupForm
+						defaultDisplay={ defaultDisplay }
+						textAlignment={ textAlignment }
+						blockAlignment={ blockAlignment }
+						loginButtonText={ loginButtonText }
+						signupButtonText={ signupButtonText }
+						buttonColor={ buttonColor }
+					/>
 				</div>,
 				isSelected && <Inspector { ...{ setAttributes, ...props} } />,
 				<BlockControls>
@@ -80,8 +95,58 @@ export default registerBlockType(
 				</BlockControls>,
 			];
 		}, // end edit
-		save: function( props ) {
-			return null;
-		}, // end save
+		save: props => {
+			const {
+				attributes: {
+					defaultDisplay,
+					showRecaptcha,
+					textAlignment,
+					blockAlignment,
+					signupRequirePhone,
+					signupButtonText,
+					loginButtonText,
+					buttonColor,
+					assignedAgent,
+				},
+				attributes,
+				className} = props;
+
+			const classes = classnames(
+				className,
+				'show-'+defaultDisplay,
+				{ 'show-recaptcha': showRecaptcha },
+				{ 'require-phone': signupRequirePhone },
+			);
+
+			return (
+				<div className={ classes } >
+					<form className="login" action={ { idxGbSubdomainUrl } +'ajax/userlogin.php' } method="post">
+						<label for="email" className="email">Email
+						<input type="email" name="email" /></label>
+						<label for="password" className="password">Password
+						<input type="password" name="password" /></label>
+						<button style={ { backgroundColor: buttonColor } } type="submit">{ loginButtonText }</button>
+						<p>Don't have an account? <a href="#">Sign up for one now!</a></p>
+					</form>
+
+					<form className="signup" action={ { idxGbSubdomainUrl } +'ajax/usersignup.php' } method="post">
+						<label for="first-name" className="first-name">First Name
+						<input type="text" name="first-name" /></label>
+						<label for="last-name" className="last-name">Last Name
+						<input type="text" name="last-name" /></label>
+						<label for="email" className="email">Email
+						<input type="email" name="email" /></label>
+						<label for="password" className="password">Password
+						<input type="password" name="password" /></label>
+						<label for="phone" className="phone">Phone
+						<input type="tel" name="phone" /></label>
+						<input type="hidden" className="agentID" value={ assignedAgent } />
+						<div className="recaptcha"></div>
+						<button style={ { backgroundColor: buttonColor } } type="submit">{ signupButtonText }</button>
+						<p>Already have an account? <a href="#">Login here</a></p>
+					</form>
+				</div>
+			);
+		},
 	},
 );

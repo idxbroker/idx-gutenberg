@@ -70,7 +70,7 @@ class ListingRender extends Component {
 		}
 
 		// For debugging listing data.
-		console.log(listings);
+		//console.log(listings);
 
 		if ( 'list' === this.props.showcaseFormat ) {
 			return [
@@ -107,7 +107,7 @@ class ListingRender extends Component {
 											</ul>
 										</div>
 									</a>
-									<a className='gallery' href={ galleryURL+'/'+listing.detailsURL }><span className='label screen-reader-text'>Photo count: </span><i className='fa fa-file-image-o'></i> { listing.mlsPhotoCount}</a>
+									<a className='gallery' href={ idxGbGalleryUrl+'/'+listing.detailsURL }><span className='label screen-reader-text'>Photo count: </span><i className='fa fa-file-image-o'></i> { listing.mlsPhotoCount}</a>
 								</div>  
 							</div>
 						) }

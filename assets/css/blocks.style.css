@@ -103,3 +103,14 @@
 .wp-block-idx-gutenberg-showcase.showcase > div.columns-1 {
   -ms-grid-columns: auto;
       grid-template-columns: auto; }
+.wp-block-idx-gutenberg-login.show-login form.signup,
+.wp-block-idx-gutenberg-login.show-signup form.login,
+.wp-block-idx-gutenberg-login .recaptcha,
+.wp-block-idx-gutenberg-login .phone {
+  display: none; }
+
+.wp-block-idx-gutenberg-login.show-signup form.signup,
+.wp-block-idx-gutenberg-login.show-login form.login,
+.wp-block-idx-gutenberg-login.show-recaptcha .recaptcha,
+.wp-block-idx-gutenberg-login.require-phone .phone {
+  display: block; }
