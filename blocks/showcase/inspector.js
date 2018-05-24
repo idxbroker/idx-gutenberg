@@ -6,7 +6,7 @@ const { Component } = wp.element;
 const {
 	InspectorControls,
 	// ColorPalette, // Not currently used
-} = wp.blocks;
+} = wp.editor;
 const {
 	Button,
 	ButtonGroup,

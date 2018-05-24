@@ -18,11 +18,15 @@ const { __ } = wp.i18n;
 // Get components from from wp.blocks
 const {
 	registerBlockType,
+} = wp.blocks;
+
+// Get components from from wp.editor
+const {
 	InspectorControls,
 	AlignmentToolbar,
 	BlockControls,
 	BlockAlignmentToolbar,
-} = wp.blocks;
+} = wp.editor;
 
 /**
  * Register login/signup block
@@ -33,7 +37,7 @@ export default registerBlockType(
 	{
 		title: __( 'Login / Sign Up', 'idx-gutenberg' ),
 		description: __( 'Display an IDX lead login or sign up form.', 'idx-gutenberg' ),
-		category: 'common',
+		category: 'widgets',
 		icon,
 		keywords: [
 		__( 'login', 'idx-gutenberg' ),
@@ -120,28 +124,31 @@ export default registerBlockType(
 
 			return (
 				<div className={ classes } >
-					<form className="login" action={ { idxGbSubdomainUrl } +'ajax/userlogin.php' } method="post">
+					<form className="login" action={ `${ idxGbSubdomainUrl }ajax/userlogin.php` } method="post">
 						<label for="email" className="email">Email
-						<input type="email" name="email" /></label>
+						<input type="email" name="email" required /></label>
 						<label for="password" className="password">Password
-						<input type="password" name="password" /></label>
+						<input type="password" name="password" required /></label>
 						<button style={ { backgroundColor: buttonColor } } type="submit">{ loginButtonText }</button>
 						<p>Don't have an account? <a href="#">Sign up for one now!</a></p>
 					</form>
 
-					<form className="signup" action={ { idxGbSubdomainUrl } +'ajax/usersignup.php' } method="post">
+					<form className="signup idx-signup" action={ `${ idxGbSubdomainUrl }ajax/usersignup.php` } method="post" target="_self">
 						<label for="first-name" className="first-name">First Name
-						<input type="text" name="first-name" /></label>
+						<input type="text" name="firstName" id="first-name" required /></label>
 						<label for="last-name" className="last-name">Last Name
-						<input type="text" name="last-name" /></label>
+						<input type="text" name="lastName" id="last-name" required /></label>
 						<label for="email" className="email">Email
-						<input type="email" name="email" /></label>
+						<input type="email" name="email" id="email" required /></label>
 						<label for="password" className="password">Password
-						<input type="password" name="password" /></label>
+						<input type="password" name="password" id="password" required /></label>
 						<label for="phone" className="phone">Phone
-						<input type="tel" name="phone" /></label>
-						<input type="hidden" className="agentID" value={ assignedAgent } />
-						<div className="recaptcha"></div>
+						<input type="tel" name="phone" id="phone" /></label>
+						<input type="hidden" name="agentOwner" value={ assignedAgent } />
+						<input type="hidden" name="action" value="addLead" />
+						<input type="hidden" name="signupWidget" value="true" />
+						<input type="hidden" name="contactType" value="direct" />
+						<div id="recaptcha" className="g-recaptcha" data-sitekey={ idxGbRecaptchaKey }></div>
 						<button style={ { backgroundColor: buttonColor } } type="submit">{ signupButtonText }</button>
 						<p>Already have an account? <a href="#">Login here</a></p>
 					</form>

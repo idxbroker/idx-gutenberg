@@ -13,7 +13,7 @@ function idx_gutenberg_register_login_block() {
 
 // Make sure that Gutenberg is available, then register our block.
 if ( function_exists( 'register_block_type' ) ) {
-	add_action( 'init', 'idx_gutenberg_register_login_block' );
+	//add_action( 'init', 'idx_gutenberg_register_login_block' );
 }
 
 /**

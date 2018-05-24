@@ -17,12 +17,16 @@ const { __ } = wp.i18n;
 
 // Get components from from wp.blocks
 const {
-	registerBlockType,
+	registerBlockType
+} = wp.blocks;
+
+// Get components from from wp.editor
+const {
 	InspectorControls,
 	AlignmentToolbar,
 	BlockControls,
 	BlockAlignmentToolbar,
-} = wp.blocks;
+} = wp.editor;
 
 // Get components from wp.components
 const { Spinner, withAPIData } = wp.components;
@@ -36,7 +40,7 @@ export default registerBlockType(
 	{
 		title: __( 'Property Showcase', 'idx-gutenberg' ),
 		description: __( 'Display properties in a variety of formats.', 'idx-gutenberg' ),
-		category: 'common',
+		category: 'widgets',
 		icon,
 		keywords: [
 		__( 'showcase', 'idx-gutenberg' ),
